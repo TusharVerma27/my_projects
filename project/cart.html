@@ -7,6 +7,30 @@
     <title>cart</title>
 </head>
 <body>
-    <h1>cart page</h1>
+   <div id="container"></div>
 </body>
+<script>
+    var cartArr = JSON.parse(localStorage.getItem("CartItems"));
+
+    console.log(cartArr);
+
+    cartArr.map(function (data) {
+        
+  
+             var div = document.createElement("div");
+
+            var image = document.createElement("img");
+            image.setAttribute("src",data.image_url);
+
+            var name = document.createElement("p");
+            name.textContent = data.name;
+
+            var p1 = document.createElement("p");
+            p1.textContent = data.price;
+
+            div.append(image,name,p1,btn);
+
+            document.querySelector("#container").append(div);
+    });
+</script>
 </html>

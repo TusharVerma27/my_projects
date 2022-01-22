@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #container{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+    }
+    #container>div{
+        height: 380px;
+        width: 285px;
+        border: 1px solid black;
+        display: block;
+        margin-top: 20px;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+    }
+    p{
+        font-size: 30px;
+        margin-top: 0px;
+    }
+    button{
+        width: 20%;
+        height: 100px;
+        font-size: 40px;
+    }
+    h1{
+        text-align: center;
+        font-size: 50px;
+    }
+</style>
+<body>
+    <h1>Herbal Supplements</h1>
+    <button onclick="window.location.href='cart.html'">Go To Cart</button>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+        var data = JSON.parse(localStorage.getItem("data"));
+        var cartArr = JSON.parse(localStorage.getItem("CartItems"))||[]
+
+        data.map(function(data) {
+            var div = document.createElement("div");
+
+            var image = document.createElement("img");
+            image.setAttribute("src",data.image_url);
+
+            var name = document.createElement("p");
+            name.textContent = data.name;
+
+            var p1 = document.createElement("p");
+            p1.textContent = data.price;
+
+            var btn = document.createElement("button");
+            btn.textContent = "Add TO Cart";
+            btn.addEventListener("click",function(){
+                addToCart(data)
+                alert("added sucessfully")
+            })
+
+            div.append(image,name,p1,btn);
+
+            document.querySelector("#container").append(div)
+        })
+
+        function addToCart(data){
+            console.log(data,"data");
+            cartArr.push(data);
+            localStorage.setItem("CartItems",JSON.stringify(cartArr));
+        }
+
+    
+</script>
